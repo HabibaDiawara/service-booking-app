@@ -1,58 +1,121 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://img.shields.io/badge/React_Native-0.81-61DAFB?logo=react&logoColor=black" alt="React Native" />
+  <img src="https://img.shields.io/badge/Expo-SDK_54-000020?logo=expo&logoColor=white" alt="Expo" />
+  <img src="https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/React_Navigation-7.x-6b52ae" alt="React Navigation" />
 </p>
 
-## About Laravel
+# 📱 My Service App
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+A cross-platform (iOS & Android) mobile application built with **React Native + Expo** that connects customers with home service providers — browse services, view details, book appointments, and manage bookings, all from one app.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+> Built end-to-end as a personal full-stack project (React Native frontend + REST API backend) to practice production-grade mobile architecture, type-safe navigation, and clean separation of concerns.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## ✨ Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- 🔐 **Authentication** — secure login with token-based auth
+- 🧰 **Service Catalog** — browse available home services with details
+- 📅 **Bookings Management** — view upcoming bookings, cancel with confirmation, pull-to-refresh
+- 👤 **User Profile** — manage account information
+- 🔒 **Secure Token Storage** — auth tokens stored via `expo-secure-store` (Keychain/Keystore), never in plain storage
+- 🧭 **Type-Safe Nested Navigation** — Bottom Tabs + Stack navigators with fully typed route params
+- ⚡ **Robust Error & Loading States** — every screen handles loading, empty, and error states explicitly
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## 🏗️ Tech Stack
 
-## Agentic Development
+| Layer | Technology |
+|---|---|
+| Framework | React Native (Expo SDK 54) |
+| Language | TypeScript |
+| Navigation | React Navigation (Bottom Tabs + Stack, fully typed) |
+| HTTP Client | Axios |
+| Secure Storage | expo-secure-store |
+| Date Handling | @react-native-community/datetimepicker |
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
 
-```bash
-composer require laravel/boost --dev
+## 🧱 Architecture
 
-php artisan boost:install
+The project follows a **layered, feature-oriented structure** that separates UI, navigation, and business logic:
+
+```
+src/
+├── components/       # Reusable UI building blocks (BookingCard, FormInput, PrimaryButton...)
+├── navigation/       # Navigators + centralized, typed route definitions
+├── screens/          # Screen-level components (composition only, no direct API calls)
+└── services/         # API layer — one file per domain (auth, bookings, services, user)
+    ├── apiErrors.ts      # Centralized error message extraction
+    ├── authContext.tsx   # Auth state provider
+    ├── authService.ts
+    ├── bookingService.ts
+    ├── serviceService.ts
+    ├── tokenStorage.ts   # Secure token persistence
+    └── userService.ts
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+**Design principles applied:**
+- **Single Responsibility** — screens only compose UI and handle local state; all data access lives in `services/`
+- **Type-safe navigation** — every screen's props are derived from a single source of truth (`navigation/types.ts`) using `CompositeScreenProps`, so navigating with wrong params fails at compile time, not runtime
+- **Centralized error handling** — `apiErrors.ts` normalizes API error messages so every screen displays consistent, user-friendly errors
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 📸 Screenshots
 
-## Code of Conduct
+<!-- Add screenshots here, e.g.: -->
+<!-- <p align="center">
+  <img src="./screenshots/services.png" width="200" />
+  <img src="./screenshots/booking-detail.png" width="200" />
+  <img src="./screenshots/bookings.png" width="200" />
+</p> -->
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 🚀 Getting Started
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Prerequisites
+- Node.js (LTS)
+- Expo Go app (for testing on a physical device) or an iOS/Android simulator
 
-## License
+### Installation
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+git clone https://github.com/HabibaDiawara/service-booking-app.git
+cd my-service-app
+npm install
+```
+
+### Environment Variables
+
+Create a `.env` file in the project root:
+
+```
+EXPO_PUBLIC_API_URL=https://your-api-url.com
+```
+
+### Run the app
+
+```bash
+npx expo start
+```
+
+Scan the QR code with the **Expo Go** app on your device, or press `a` / `i` to launch an Android/iOS simulator.
+
+---
+
+## 🗺️ Roadmap
+
+- [ ] Dark mode support
+- [ ] Push notifications for booking reminders
+- [ ] Multi-language support (Arabic/English + RTL)
+- [ ] Unit & integration tests
+
+---
+
+## 📄 License
+
+This project is open-sourced for portfolio and educational purposes.
